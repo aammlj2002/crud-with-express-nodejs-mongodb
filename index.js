@@ -1,7 +1,15 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
+const env = require("./env");
 const app = express();
+mongoose
+    .connect(env.mongodbServer)
+    .then(() => {
+        console.log("connected");
+        app.listen(3000);
+    })
+    .catch((err) => console.log(err));
 app.set("view engine", "ejs");
-app.listen(3000);
 app.get("/", (req, res) => {
     let items = [
         { name: "mobile phone", price: "30" },
