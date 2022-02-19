@@ -1,12 +1,18 @@
 const express = require("express");
 const app = express();
+app.set("view engine", "ejs");
 app.listen(3000);
 app.get("/", (req, res) => {
-    res.sendFile("./views/index.html", { root: __dirname });
+    let items = [
+        { name: "mobile phone", price: "30" },
+        { name: "laptop", price: "80" },
+        { name: "book", price: "10" },
+    ];
+    res.render("index", { items });
 });
 app.get("/add-items", (req, res) => {
-    res.sendFile("./views/add-items.html", { root: __dirname });
+    res.render("add-items");
 });
 app.use((req, res) => {
-    res.sendFile("./views/404.html", { root: __dirname });
+    res.render("404");
 });
