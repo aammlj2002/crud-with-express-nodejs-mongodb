@@ -1,0 +1,14 @@
+<%- include("./partials/header.ejs") %>
+    <%- include("./partials/nav.ejs") %>
+        <div class="container">
+            <h4>Item</h4>
+            <div>
+                <h5>
+                    Name - <%= item.name %>
+                </h5>
+                <p>Price - &dollar;<%= item.price %>
+                </p>
+                <a class="btn" href="">Delete</a>
+            </div>
+        </div>
+        <%- include("./partials/footer.ejs") %>

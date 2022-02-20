@@ -35,7 +35,12 @@ app.post("/items", (req, res) => {
             console.log(err);
         });
 });
-
+app.get("/items/:id", (req, res) => {
+    const id = req.params.id;
+    Item.findById(id).then((result) => {
+        res.render("item-detail", { item: result });
+    });
+});
 app.get("/add-items", (req, res) => {
     res.render("add-items");
 });

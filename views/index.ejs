@@ -7,9 +7,10 @@
             <%if(items.length>0){%>
                 <%items.forEach(item=> {%>
                     <li class="collection-item">
-                        <div>
-                            <%= item.name %>
-                                $<%= item.price %>
+                        <div><a href="/items/<%= item._id%>">
+                                <%= item.name %>
+                                    $<%= item.price %>
+                            </a>
                         </div>
                         <a href="#">edit</a>
                         <a href="#">delete</a>
