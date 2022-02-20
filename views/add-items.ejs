@@ -1,20 +1,20 @@
 <%- include("./partials/header.ejs") %>
     <%- include("./partials/nav.ejs") %>
         <div class="row m5 container" style="margin-top: 20px ;">
-            <form class="col s12">
+            <form class="col s12" action="/items" method="POST">
                 <div class="row">
                     <div class="input-field col s5">
-                        <input id="item" type="text" class="validate">
+                        <input id="item" type="text" class="validate" name="name">
                         <label for="item">Items</label>
                     </div>
                     <div class="input-field col s5">
-                        <input id="price" type="text" class="validate">
+                        <input id="price" type="text" class="validate" name="price">
                         <label for="price">Price</label>
                     </div>
                     <div class="col s2" style="margin-top: 20px;">
-                        <a class="waves-effect waves-light btn">
+                        <button type="submit" class="waves-effect waves-light btn">
                             add items
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>

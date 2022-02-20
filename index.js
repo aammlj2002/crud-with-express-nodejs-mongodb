@@ -1,7 +1,9 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const Item = require("./models/items");
 const env = require("./env");
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 mongoose
     .connect(env.mongodbServer)
     .then(() => {
@@ -11,13 +13,29 @@ mongoose
     .catch((err) => console.log(err));
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
-    let items = [
-        { name: "mobile phone", price: "30" },
-        { name: "laptop", price: "80" },
-        { name: "book", price: "10" },
-    ];
-    res.render("index", { items });
+    res.redirect("/get-items");
 });
+app.get("/get-items", (req, res) => {
+    Item.find()
+        .then((result) => res.render("index", { items: result }))
+        .catch((err) => res.send(err));
+});
+app.get("/get-item", (req, res) => {
+    Item.findById("621102b47e054d068e6658a1")
+        .then((result) => res.send(result))
+        .catch((err) => res.send(err));
+});
+app.post("/items", (req, res) => {
+    const item = Item(req.body);
+    item.save()
+        .then(() => {
+            res.redirect("/get-items");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
 app.get("/add-items", (req, res) => {
     res.render("add-items");
 });
