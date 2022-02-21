@@ -44,6 +44,12 @@ app.get("/items/:id", (req, res) => {
 app.get("/add-items", (req, res) => {
     res.render("add-items");
 });
+app.delete("/items/:id", (req, res) => {
+    const id = req.params.id;
+    Item.findByIdAndDelete(id).then((result) => {
+        res.json({ redirect: "/get-items" });
+    });
+});
 app.use((req, res) => {
     res.render("404");
 });
