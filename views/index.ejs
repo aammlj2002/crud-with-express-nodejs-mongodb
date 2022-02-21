@@ -12,7 +12,8 @@
                                     $<%= item.price %>
                             </a>
                         </div>
-                        <a href="#">edit</a>
+                        <a id="editbtn" class="modal-trigger" onclick="getEditId('<%=item._id%>')"
+                            href="#editModal">edit</a>
                         <a href="#">delete</a>
                     </li>
                     <%});%>
@@ -22,4 +23,40 @@
                             </li>
                             <%}%>
         </ul>
+
+        <!-- Modal Structure -->
+        <div id="editModal" class="modal">
+            <form id="editForm" action="">
+                <div class="modal-content">
+                    <h4>Edit Form</h4>
+                    <input type="text" name="name" placeholder="item name">
+                    <input type="text" name="price" placeholder="item price">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Update</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            var updateId;
+            editForm.onsubmit = async function (e) {
+                e.preventDefault();
+
+                let data = new FormData(editForm);
+                let response = await fetch(`items/${updateId}`, {
+                    method: "PUT",
+                    body: new URLSearchParams(data),
+                    headers: new Headers({
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    })
+                })
+                let result = await response.json();
+                editForm.reset();
+                window.location.reload()
+            }
+            function getEditId(e) {
+                updateId = e
+            }
+        </script>
+
         <%- include("./partials/footer.ejs") %>

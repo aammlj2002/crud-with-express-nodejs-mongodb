@@ -50,6 +50,12 @@ app.delete("/items/:id", (req, res) => {
         res.json({ redirect: "/get-items" });
     });
 });
+app.put("/items/:id", (req, res) => {
+    const id = req.params.id;
+    Item.findByIdAndUpdate(id, req.body).then((result) => {
+        res.json({ redirect: "/get-items" });
+    });
+});
 app.use((req, res) => {
     res.render("404");
 });
